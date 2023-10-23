@@ -50,5 +50,5 @@ export function useAuthPage() {
     const to = { pathname: "/login", search };
 
     return React.createElement(Navigate, { to });
-  }, [outlet, matches, searchParams, usr]);
+  }, [outlet, searchParams, usr, nextRoute]);
 }
