@@ -35,7 +35,7 @@ export function BlankMenu() {
         sx={{
           "& .MuiDrawer-paper": {
             width: "100%",
-            maxWidth: ["none", "none", 450],
+            maxWidth: { md: 450 },
           },
         }}
       >
