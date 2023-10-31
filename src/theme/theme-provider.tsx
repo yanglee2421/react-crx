@@ -1,5 +1,9 @@
 // MUI Imports
-import { ThemeProvider as MuiThemeProvider } from "@mui/material";
+import {
+  ThemeProvider as MuiThemeProvider,
+  CssBaseline,
+  GlobalStyles,
+} from "@mui/material";
 
 // React Imports
 import React from "react";
@@ -12,5 +16,11 @@ export function ThemeProvider(props: React.PropsWithChildren) {
 
   const theme = toTheme();
 
-  return <MuiThemeProvider theme={theme}>{children}</MuiThemeProvider>;
+  return (
+    <MuiThemeProvider theme={theme}>
+      <CssBaseline />
+      <GlobalStyles styles={{}} />
+      {children}
+    </MuiThemeProvider>
+  );
 }
