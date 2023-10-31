@@ -8,11 +8,6 @@ chrome.storage.sync.onChanged.addListener((data) => {
   toggleContextMenus(showContextMenus);
 });
 
-chrome.runtime.onInstalled.addListener(async () => {
-  const { settings } = await chrome.storage.sync.get("settings");
-  toggleContextMenus(settings.showContextMenus);
-});
-
 function toggleContextMenus(showContextMenus: boolean) {
   const id = "WarpDriven Crawler";
   const title = chrome.i18n.getMessage("contextMenus");

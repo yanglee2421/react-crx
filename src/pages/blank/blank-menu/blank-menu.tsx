@@ -1,6 +1,17 @@
 // MUI Imports
-import { Box, Drawer, IconButton, Theme, useMediaQuery } from "@mui/material";
-import { Menu, Close } from "@mui/icons-material";
+import {
+  Box,
+  Drawer,
+  IconButton,
+  ListItemIcon,
+  ListItemText,
+  MenuItem,
+  MenuList,
+  Theme,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
+import { Menu, Close, CircleOutlined } from "@mui/icons-material";
 
 // React Imports
 import React from "react";
@@ -60,28 +71,18 @@ export function BlankMenu() {
           </Box>
           <Box flex={1} overflow={"hidden"} mt={2}>
             <Scrollbar>
-              <Box height={2000} px={2}>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Accusamus maxime optio voluptatibus eligendi ut praesentium
-                possimus aperiam, itaque esse vero odio suscipit nobis
-                accusantium libero amet, enim dolores. Magnam, illum.
-                Dignissimos ullam illum ea non cupiditate ratione iusto,
-                aspernatur dolorum beatae eos quibusdam ipsa eius dolores
-                consectetur velit aut qui laudantium eveniet! Amet velit
-                excepturi sequi vero eum. Excepturi, vel. Eligendi
-                necessitatibus dolorem sunt sed fuga! Reprehenderit molestias
-                ea, similique vitae, eveniet aspernatur tenetur eligendi veniam
-                distinctio consectetur expedita incidunt veritatis optio nisi
-                debitis, quasi quidem sequi ex voluptatibus magnam. Fuga libero,
-                in possimus cumque delectus aspernatur obcaecati, autem
-                asperiores voluptas distinctio deleniti, alias debitis eius
-                nobis omnis error? Quisquam ducimus quaerat illum reprehenderit
-                sunt similique mollitia beatae velit delectus! Voluptatum
-                ducimus, eos porro veniam temporibus accusamus dolore eum quas
-                nisi aut laudantium, fugit voluptatem quaerat error nesciunt
-                pariatur aperiam excepturi quod dicta non quibusdam vel. Atque
-                sint minima necessitatibus.
-              </Box>
+              <MenuList>
+                <MenuItem>
+                  <ListItemIcon>
+                    <CircleOutlined />
+                  </ListItemIcon>
+                  <ListItemText>Hello</ListItemText>
+                  <Typography variant="body2" color={"text.secondary"}>
+                    sub
+                  </Typography>
+                </MenuItem>
+              </MenuList>
+              <Box height={2000} px={2}></Box>
             </Scrollbar>
             D
           </Box>
