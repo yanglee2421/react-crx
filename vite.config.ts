@@ -20,6 +20,18 @@ export default defineConfig({
     },
   },
 
+  // ** CSS
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@use "@/assets/scss" as *;`,
+      },
+    },
+    modules: {
+      localsConvention: "camelCaseOnly",
+    },
+  },
+
   // Dev Server
   server: {
     port: 3005,
@@ -31,6 +43,7 @@ export default defineConfig({
       input: {
         default_popup: resolve(__dirname, "./default_popup.html"),
         options_page: resolve(__dirname, "./options_page.html"),
+        blank: resolve(__dirname, "./blank.html"),
       },
     },
   },
@@ -63,5 +76,8 @@ function manifest() {
     },
     options_page: "options_page.html",
     default_locale: "en",
+    chrome_url_overrides: {
+      newtab: "blank.html",
+    },
   });
 }

@@ -1,6 +1,8 @@
 // React Imports
 import React from "react";
 import ReactDOM from "react-dom/client";
+
+// APP Imports
 import { Content } from "@/apps/content";
 
 const root = document.createElement("div");
