@@ -22,6 +22,9 @@ export const sliceLogin = createSlice({
     islogged(state, { payload }: PayloadAction<Usr | null>) {
       state.usr = payload;
     },
+    reset(s) {
+      Object.assign(s, initialState());
+    },
   },
   extraReducers(builder) {
     builder.addCase(mutateLogin.fulfilled, (s, { payload }) => {

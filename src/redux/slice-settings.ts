@@ -25,6 +25,9 @@ export const sliceSettings = createSlice({
     showContextMenusToggle(s) {
       s.showContextMenus = !s.showContextMenus;
     },
+    reset(s) {
+      Object.assign(s, initialState());
+    },
   },
   extraReducers(builder) {
     builder.addCase(mutateSettings.fulfilled, (s, { payload }) => {
