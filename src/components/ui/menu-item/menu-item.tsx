@@ -57,5 +57,5 @@ export function MenuItem(props: MenuItemProps) {
 
 export interface MenuItemProps {
   children: React.ReactNode;
-  label: string;
+  label: React.ReactNode;
 }
