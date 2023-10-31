@@ -28,6 +28,7 @@ export function BlankMenu() {
   const isSmall = useMediaQuery<Theme>((theme) => {
     return theme.breakpoints.down("md");
   });
+  console.log(isSmall);
 
   return (
     <>
@@ -41,7 +42,7 @@ export function BlankMenu() {
         sx={{
           "& .MuiDrawer-paper": {
             width: "100%",
-            maxWidth: isSmall ? void 0 : 450,
+            maxWidth: ["none", "none", 450],
           },
         }}
       >
@@ -51,15 +52,23 @@ export function BlankMenu() {
           boxSizing={"border-box"}
           height={"100%"}
         >
-          <Box>
+          <Box
+            p={2}
+            sx={{
+              borderBottom: 1,
+              borderColor(theme) {
+                return theme.palette.divider;
+              },
+            }}
+          >
             <IconButton onClick={closeHandler}>
               <Close />
             </IconButton>
           </Box>
-          <Divider>list</Divider>
+          {/* <Divider>list</Divider> */}
           <Box flex={1} overflow={"hidden"} mt={2}>
             <Scrollbar>
-              <Box height={2000}>
+              <Box height={2000} px={2}>
                 Lorem ipsum dolor, sit amet consectetur adipisicing elit.
                 Accusamus maxime optio voluptatibus eligendi ut praesentium
                 possimus aperiam, itaque esse vero odio suscipit nobis
