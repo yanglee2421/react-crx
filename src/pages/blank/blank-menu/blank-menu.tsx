@@ -3,21 +3,17 @@ import {
   Box,
   Drawer,
   IconButton,
-  ListItemIcon,
-  ListItemText,
-  MenuItem,
-  MenuList,
+  List,
   Theme,
-  Typography,
   useMediaQuery,
 } from "@mui/material";
-import { Menu, Close, CircleOutlined } from "@mui/icons-material";
+import { Menu, Close } from "@mui/icons-material";
 
 // React Imports
 import React from "react";
 
 // Components Imports
-import { Scrollbar } from "@/components/ui";
+import { Scrollbar, MenuItem } from "@/components/ui";
 
 export function BlankMenu() {
   const [open, setOpen] = React.useState(false);
@@ -46,7 +42,7 @@ export function BlankMenu() {
         sx={{
           "& .MuiDrawer-paper": {
             width: "100%",
-            maxWidth: { md: 450 },
+            maxWidth: { md: 320 },
           },
         }}
       >
@@ -71,17 +67,15 @@ export function BlankMenu() {
           </Box>
           <Box flex={1} overflow={"hidden"} mt={2}>
             <Scrollbar>
-              <MenuList>
-                <MenuItem>
-                  <ListItemIcon>
-                    <CircleOutlined />
-                  </ListItemIcon>
-                  <ListItemText>Hello</ListItemText>
-                  <Typography variant="body2" color={"text.secondary"}>
-                    sub
-                  </Typography>
+              <List>
+                <MenuItem label="one">
+                  <MenuItem label="one one">{null}</MenuItem>
+                  <MenuItem label="one two">{null}</MenuItem>
+                  <MenuItem label="one three">{null}</MenuItem>
+                  <MenuItem label="one four">{null}</MenuItem>
+                  <MenuItem label="one five">null</MenuItem>
                 </MenuItem>
-              </MenuList>
+              </List>
               <Box height={2000} px={2}></Box>
             </Scrollbar>
             D
