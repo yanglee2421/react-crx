@@ -1,12 +1,5 @@
 // MUI Imports
-import {
-  Box,
-  Divider,
-  Drawer,
-  IconButton,
-  Theme,
-  useMediaQuery,
-} from "@mui/material";
+import { Box, Drawer, IconButton, Theme, useMediaQuery } from "@mui/material";
 import { Menu, Close } from "@mui/icons-material";
 
 // React Imports
@@ -65,7 +58,6 @@ export function BlankMenu() {
               <Close />
             </IconButton>
           </Box>
-          {/* <Divider>list</Divider> */}
           <Box flex={1} overflow={"hidden"} mt={2}>
             <Scrollbar>
               <Box height={2000} px={2}>
