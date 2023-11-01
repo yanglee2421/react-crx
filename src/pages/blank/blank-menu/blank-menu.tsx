@@ -43,7 +43,7 @@ export function BlankMenu() {
         sx={{
           "& .MuiDrawer-paper": {
             width: "100%",
-            maxWidth: { md: 320 },
+            maxWidth: { sm: 320 },
           },
         }}
       >
@@ -70,16 +70,15 @@ export function BlankMenu() {
             <Scrollbar>
               <List disablePadding>
                 <MenuGroup label="one" icon={<Dashboard />}>
-                  <MenuItem>{null}</MenuItem>
-                  <MenuItem>{null}</MenuItem>
-                  <MenuItem>{null}</MenuItem>
-                  <MenuItem>{null}</MenuItem>
+                  <MenuItem>null</MenuItem>
+                  <MenuItem>null</MenuItem>
+                  <MenuItem>null</MenuItem>
+                  <MenuItem>null</MenuItem>
                   <MenuItem>null</MenuItem>
                 </MenuGroup>
               </List>
               <Box height={2000} px={2}></Box>
             </Scrollbar>
-            D
           </Box>
         </Box>
       </Drawer>
