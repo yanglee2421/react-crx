@@ -6,14 +6,15 @@ import {
   List,
   Theme,
   useMediaQuery,
+  MenuItem,
 } from "@mui/material";
-import { Menu, Close } from "@mui/icons-material";
+import { Menu, Close, Dashboard } from "@mui/icons-material";
 
 // React Imports
 import React from "react";
 
 // Components Imports
-import { Scrollbar, MenuItem } from "@/components/ui";
+import { Scrollbar, MenuGroup } from "@/components/ui";
 
 export function BlankMenu() {
   const [open, setOpen] = React.useState(false);
@@ -68,13 +69,13 @@ export function BlankMenu() {
           <Box flex={1} overflow={"hidden"}>
             <Scrollbar>
               <List disablePadding>
-                <MenuItem label="one">
-                  <MenuItem label="one one">{null}</MenuItem>
-                  <MenuItem label="one two">{null}</MenuItem>
-                  <MenuItem label="one three">{null}</MenuItem>
-                  <MenuItem label="one four">{null}</MenuItem>
-                  <MenuItem label="one five">null</MenuItem>
-                </MenuItem>
+                <MenuGroup label="one" icon={<Dashboard />}>
+                  <MenuItem>{null}</MenuItem>
+                  <MenuItem>{null}</MenuItem>
+                  <MenuItem>{null}</MenuItem>
+                  <MenuItem>{null}</MenuItem>
+                  <MenuItem>null</MenuItem>
+                </MenuGroup>
               </List>
               <Box height={2000} px={2}></Box>
             </Scrollbar>
