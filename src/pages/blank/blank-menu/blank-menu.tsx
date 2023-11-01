@@ -65,9 +65,9 @@ export function BlankMenu() {
               <Close />
             </IconButton>
           </Box>
-          <Box flex={1} overflow={"hidden"} mt={2}>
+          <Box flex={1} overflow={"hidden"}>
             <Scrollbar>
-              <List>
+              <List disablePadding>
                 <MenuItem label="one">
                   <MenuItem label="one one">{null}</MenuItem>
                   <MenuItem label="one two">{null}</MenuItem>
