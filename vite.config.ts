@@ -7,46 +7,49 @@ import { crx, defineManifest } from "@crxjs/vite-plugin";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath, URL } from "node:url";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-
 // https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [react(), crx({ manifest: manifest() })],
+export default defineConfig((configEnv) => {
+  const __dirname = dirname(fileURLToPath(import.meta.url));
+  void configEnv;
 
-  // Path Alias
-  resolve: {
-    alias: {
-      "@": fileURLToPath(new URL("./src", import.meta.url)),
-    },
-  },
+  return {
+    plugins: [react(), crx({ manifest: manifest() })],
 
-  // ** CSS
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: `@use "@/assets/scss" as *;`,
+    // Path Alias
+    resolve: {
+      alias: {
+        "@": fileURLToPath(new URL("./src", import.meta.url)),
       },
     },
-    modules: {
-      localsConvention: "camelCaseOnly",
-    },
-  },
 
-  // Dev Server
-  server: {
-    port: 3005,
-  },
-
-  // Build Config
-  build: {
-    rollupOptions: {
-      input: {
-        default_popup: resolve(__dirname, "./default_popup.html"),
-        options_page: resolve(__dirname, "./options_page.html"),
-        blank: resolve(__dirname, "./blank.html"),
+    // ** CSS
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `@use "@/assets/scss" as *;`,
+        },
+      },
+      modules: {
+        localsConvention: "camelCaseOnly",
       },
     },
-  },
+
+    // Dev Server
+    server: {
+      port: 3005,
+    },
+
+    // Build Config
+    build: {
+      rollupOptions: {
+        input: {
+          default_popup: resolve(__dirname, "./default_popup.html"),
+          options_page: resolve(__dirname, "./options_page.html"),
+          blank: resolve(__dirname, "./blank.html"),
+        },
+      },
+    },
+  };
 });
 
 function manifest() {
