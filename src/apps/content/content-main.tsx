@@ -1,5 +1,5 @@
 // React Imports
-import { useEffect } from "react";
+import React from "react";
 
 // API Imports
 import { useHtmlPost } from "@/hooks";
@@ -8,7 +8,7 @@ export function ContentMain() {
   // API Hooks
   const { mutate } = useHtmlPost();
 
-  useEffect(() => {
+  React.useEffect(() => {
     const data = {
       html: document.documentElement.outerHTML,
       url: globalThis.location.href,
