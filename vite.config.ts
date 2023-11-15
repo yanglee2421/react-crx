@@ -70,6 +70,7 @@ function manifest() {
     background: {
       service_worker: "src/background.ts",
       type: "module",
+      // persistent: true,
     },
 
     // ** Views
