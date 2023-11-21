@@ -7,12 +7,22 @@ import {
   Grid,
   IconButton,
 } from "@mui/material";
-import { Microsoft } from "@mui/icons-material";
+import { LightOutlined, Microsoft } from "@mui/icons-material";
 
 // Components Imports
 import { BlankMenu } from "./blank-menu";
 
+// Redux Imports
+import { useAppDispatch, sliceTheme } from "@/redux";
+
 export function Blank() {
+  const dispatch = useAppDispatch();
+
+  const handleThemeChange = () => {
+    const action = sliceTheme.actions.isDarkToggle();
+    dispatch(action);
+  };
+
   return (
     <>
       <Grid container spacing={6} p={3}>
@@ -31,7 +41,11 @@ export function Blank() {
         <Grid item xs={12} sm={6} md={3}>
           <Card>
             <CardHeader />
-            <CardContent></CardContent>
+            <CardContent>
+              <IconButton onClick={handleThemeChange}>
+                <LightOutlined />
+              </IconButton>
+            </CardContent>
             <CardActions></CardActions>
           </Card>
         </Grid>

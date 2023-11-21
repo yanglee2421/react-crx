@@ -21,8 +21,12 @@ export const sliceTheme = createSlice({
   },
 });
 
-function initialState() {
+function initialState(): ThemeSettings {
   return {
     isDark: false,
   };
+}
+
+export interface ThemeSettings {
+  isDark: boolean;
 }

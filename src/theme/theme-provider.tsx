@@ -10,11 +10,18 @@ import React from "react";
 
 import { toTheme } from "./to-theme";
 
+// Redux Imports
+import { useAppSelector } from "@/redux";
+
 export function ThemeProvider(props: React.PropsWithChildren) {
   // ** Props
   const { children } = props;
 
-  const theme = toTheme();
+  const themeSettings = useAppSelector((s) => {
+    return s.theme;
+  });
+
+  const theme = toTheme(themeSettings);
 
   return (
     <MuiThemeProvider theme={theme}>
