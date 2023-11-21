@@ -65,6 +65,11 @@ function manifest() {
     name: "WarpDriven Crawler",
     version: "0.0.1",
 
+    icons: {
+      "16": "enabled-16.png",
+      "128": "enabled-128.png",
+    },
+
     // ** Scripts
     content_scripts: [
       {
@@ -83,6 +88,7 @@ function manifest() {
     action: {
       default_popup: "default_popup.html",
       default_title: "WarpDriven Crawler",
+      default_icon: {},
     },
     options_page: "options_page.html",
     default_locale: "en",

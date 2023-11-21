@@ -80,8 +80,11 @@ dependencies:
 
 devDependencies:
   '@crxjs/vite-plugin':
-    specifier: 2.0.0-beta.18
-    version: 2.0.0-beta.18
+    specifier: 2.0.0-beta.21
+    version: 2.0.0-beta.21
+  '@types/chrome':
+    specifier: ^0.0.252
+    version: 0.0.252
   '@types/node':
     specifier: ^20.9.3
     version: 20.9.3
@@ -103,9 +106,6 @@ devDependencies:
   '@vitejs/plugin-react':
     specifier: ^4.2.0
     version: 4.2.0(vite@5.0.2)
-  chrome-types:
-    specifier: ^0.1.246
-    version: 0.1.246
   eslint:
     specifier: ^8.54.0
     version: 8.54.0
@@ -370,8 +370,8 @@ packages:
       react: 18.2.0
     dev: false
 
-  /@crxjs/vite-plugin@2.0.0-beta.18:
-    resolution: {integrity: sha512-3jW20cUE04wTTg8HtoQD7bIL4Nhu91pRX4PHazMu2/tzzSTaR4stW5DHRIJOjFuRpOSCNNpyamyXwxS6qOv7Bg==}
+  /@crxjs/vite-plugin@2.0.0-beta.21:
+    resolution: {integrity: sha512-kSXgHHqCXASqJ8NmY94+KLGVwdtkJ0E7KsRQ+vbMpRliJ5ze0xnSk0l41p4txlUysmEoqaeo4Xb7rEFdcU2zjQ==}
     dependencies:
       '@rollup/pluginutils': 4.2.1
       '@webcomponents/custom-elements': 1.6.0
@@ -1299,6 +1299,27 @@ packages:
       '@babel/types': 7.23.4
     dev: true
 
+  /@types/chrome@0.0.252:
+    resolution: {integrity: sha512-bnVY4Vtz01Dd/KDAn6LgxhGPqBMMxvqjUe3PdbP65/aBvyh3Fuw2qgKooiPFHRVT8uL7SJC0n7EAWcXAjCC+Ug==}
+    dependencies:
+      '@types/filesystem': 0.0.35
+      '@types/har-format': 1.2.15
+    dev: true
+
+  /@types/filesystem@0.0.35:
+    resolution: {integrity: sha512-1eKvCaIBdrD2mmMgy5dwh564rVvfEhZTWVQQGRNn0Nt4ZEnJ0C8oSUCzvMKRA4lGde5oEVo+q2MrTTbV/GHDCQ==}
+    dependencies:
+      '@types/filewriter': 0.0.32
+    dev: true
+
+  /@types/filewriter@0.0.32:
+    resolution: {integrity: sha512-Kpi2GXQyYJdjL8mFclL1eDgihn1SIzorMZjD94kdPZh9E4VxGOeyjPxi5LpsM4Zku7P0reqegZTt2GxhmA9VBg==}
+    dev: true
+
+  /@types/har-format@1.2.15:
+    resolution: {integrity: sha512-RpQH4rXLuvTXKR0zqHq3go0RVXYv/YVqv4TnPH95VbwUxZdQlK1EtcMvQvMpDngHbt13Csh9Z4qT9AbkiQH5BA==}
+    dev: true
+
   /@types/hoist-non-react-statics@3.3.5:
     resolution: {integrity: sha512-SbcrWzkKBw2cdwRTwQAswfpB9g9LJWfjtUeW/jvNwbhC8cpmmNYVePa+ncbUe0rGTQ7G3Ff6mYUN2VMfLVr+Sg==}
     dependencies:
@@ -1692,10 +1713,6 @@ packages:
       htmlparser2: 8.0.2
       parse5: 7.1.2
       parse5-htmlparser2-tree-adapter: 7.0.0
-    dev: true
-
-  /chrome-types@0.1.246:
-    resolution: {integrity: sha512-nX4M3ISvRnx/Dt3fdfTjLQaCiWwKoVUc+eaEjmURTR+47YJ5E82MQozFOsqV/U4QG+4+hNHdAwj53NtBGOitUw==}
     dev: true
 
   /clsx@2.0.0:
