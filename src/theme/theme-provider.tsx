@@ -26,7 +26,14 @@ export function ThemeProvider(props: React.PropsWithChildren) {
   return (
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
-      <GlobalStyles styles={{}} />
+      <GlobalStyles
+        styles={{
+          "html,body,#root": {
+            boxSizing: "border-box",
+            height: "100%",
+          },
+        }}
+      />
       {children}
     </MuiThemeProvider>
   );
