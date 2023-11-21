@@ -41,7 +41,7 @@ function queries(): DefaultOptions["queries"] {
     refetchOnWindowFocus: true,
     refetchOnReconnect: true,
     retryDelay(attemptIndex) {
-      return Math.min(1000 * 2 ** attemptIndex, 30000);
+      return Math.min(1000 * 2 ** attemptIndex, 1000 * 8);
     },
   };
 }
