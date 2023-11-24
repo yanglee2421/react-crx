@@ -37,6 +37,10 @@ export const sliceSettings = createSlice({
     builder.addCase(mutateSettings.pending, (s) => {
       s.isLoading = true;
     });
+    builder.addCase(mutateSettings.rejected, (s) => {
+      s.isLoading = false;
+      console.error(s);
+    });
   },
 });
 

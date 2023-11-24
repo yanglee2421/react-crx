@@ -3,9 +3,8 @@ import {
   Box,
   Drawer,
   IconButton,
+  IconButtonProps,
   List,
-  Theme,
-  useMediaQuery,
   MenuItem,
 } from "@mui/material";
 import { Menu, Close, Dashboard } from "@mui/icons-material";
@@ -16,7 +15,8 @@ import React from "react";
 // Components Imports
 import { Scrollbar, MenuGroup } from "@/components/ui";
 
-export function BlankMenu() {
+export function BlankMenu(props: IconButtonProps) {
+  const { ...restProps } = props;
   const [open, setOpen] = React.useState(false);
 
   const closeHandler = () => {
@@ -26,14 +26,9 @@ export function BlankMenu() {
     setOpen(true);
   };
 
-  const isSmall = useMediaQuery<Theme>((theme) => {
-    return theme.breakpoints.down("md");
-  });
-  console.log(isSmall);
-
   return (
     <>
-      <IconButton onClick={openHandler}>
+      <IconButton onClick={openHandler} {...restProps}>
         <Menu />
       </IconButton>
       <Drawer
