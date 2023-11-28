@@ -1,69 +1,35 @@
-// Redux Toolkit Imports
-import { PayloadAction, createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-
-// Localforage Imports
-import localforage from "localforage";
-
-export const loadBgImg = createAsyncThunk<string, void>(
-  "get/bgImg",
-  async () => {
-    try {
-      const dataURL = await localforage.getItem<string>("bgImg");
-      if (typeof dataURL === "string") {
-        return dataURL;
-      }
-    } catch (error) {
-      console.error(error);
-    }
-
-    return "";
-  }
-);
+// RTK Imports
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export const sliceTheme = createSlice({
   name: "theme",
   initialState,
   reducers: {
-    isDark(state, { payload }: PayloadAction<boolean>) {
-      state.isDark = payload;
+    reset(s) {
+      Object.assign(s, initialState());
     },
-    isDarkToggle(state, { payload }: PayloadAction<boolean | void>) {
-      switch (payload) {
-        case true:
-        case false:
-          state.isDark = payload;
-          break;
-        default:
-          state.isDark = !state.isDark;
-      }
+    mode(s, { payload }: PayloadAction<ThemeConfig["mode"]>) {
+      s.mode = payload;
     },
-  },
-  extraReducers(builder) {
-    builder.addCase(loadBgImg.pending, (s) => {
-      s.isLoading = true;
-      s.bgImg = "";
-    });
-    builder.addCase(loadBgImg.rejected, (s) => {
-      s.isLoading = false;
-      s.bgImg = "";
-    });
-    builder.addCase(loadBgImg.fulfilled, (s, ctx) => {
-      s.isLoading = false;
-      s.bgImg = ctx.payload;
-    });
+    bgAlpha(s, { payload }: PayloadAction<number>) {
+      s.bgAlpha = payload;
+    },
+    bgBlur(s, { payload }: PayloadAction<number>) {
+      s.bgBlur = payload;
+    },
   },
 });
 
-function initialState(): ThemeSettings {
+function initialState(): ThemeConfig {
   return {
-    isDark: false,
-    isLoading: false,
-    bgImg: "",
+    mode: "auto",
+    bgAlpha: 0,
+    bgBlur: 0,
   };
 }
 
-export interface ThemeSettings {
-  isDark: boolean;
-  isLoading: boolean;
-  bgImg: string;
+export interface ThemeConfig {
+  mode: "dark" | "light" | "auto";
+  bgAlpha: number;
+  bgBlur: number;
 }

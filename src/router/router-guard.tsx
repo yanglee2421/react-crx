@@ -1,13 +1,3 @@
-// MUI Imports
-// import { Backdrop, CircularProgress } from "@mui/material";
-
-// Redux Imports
-import {
-  mutateSettings,
-  useAppDispatch,
-  // useAppSelector
-} from "@/redux";
-
 // React Imports
 import React from "react";
 
@@ -18,14 +8,14 @@ import {
   // Navigate,
   useOutlet,
 } from "react-router-dom";
-// import { toIsInWl } from "./router-whitelist";
+
+// Nprogress Imports
+import Nprogress from "nprogress";
+
+import { useAcl } from "@/configs/acl";
 
 export function Component() {
-  const dispatch = useAppDispatch();
-
-  React.useEffect(() => {
-    dispatch(mutateSettings({}));
-  }, [dispatch]);
+  const acl = useAcl();
 
   // Router Hooks
   const outlet = useOutlet();
@@ -35,6 +25,14 @@ export function Component() {
   const routeNode = React.useMemo(() => {
     return outlet;
   }, [outlet]);
+
+  React.useEffect(() => {
+    Nprogress.done();
+
+    return () => {
+      Nprogress.start();
+    };
+  }, [routeNode]);
 
   return <>{routeNode}</>;
 }

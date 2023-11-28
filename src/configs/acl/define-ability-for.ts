@@ -10,20 +10,29 @@ export function defineAbilityFor(role: string) {
     createMongoAbility
   );
 
-  switch (role) {
-    case "admin":
-      can("manage", "all");
-      break;
-    case "client":
-      can("read", "all");
-      break;
-    default:
-      cannot("manage", "all");
+  // Owner
+  if (role === "owner") {
+    can("manage", "all");
+  }
+
+  // Admin
+  if (role === "admin") {
+    can("manage", "all");
+  }
+
+  // Client
+  if (role === "client") {
+    can("read", "all");
+  }
+
+  // Visitor
+  if (role === "visitor") {
+    can(["read"], "login");
+    cannot("delete", "all", {});
   }
 
   return build();
 }
 
-export type AppAbility = MongoAbility<[Actions, Subjects]>;
+export type AppAbility = MongoAbility<[Actions, string]>;
 type Actions = "create" | "read" | "update" | "delete" | "manage";
-type Subjects = "all" | "User" | "Article";
