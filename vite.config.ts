@@ -37,12 +37,12 @@ export default defineConfig((configEnv) => {
     // Dev Server
     server: {
       port: 3005,
+      strictPort: true,
       hmr: {
-        // port: 3015,
+        port: 3005,
         // clientPort: 3005,
-        overlay: true,
+        // overlay: true,
       },
-      // strictPort: true,
     },
 
     // Build Config
