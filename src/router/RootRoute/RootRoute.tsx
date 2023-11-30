@@ -16,6 +16,7 @@ import { useAcl } from "@/configs/acl";
 
 export function RootRoute() {
   const acl = useAcl();
+  void acl;
 
   // Router Hooks
   const outlet = useOutlet();

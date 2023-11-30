@@ -6,13 +6,9 @@ import { TabContext, TabList, TabListProps, TabPanel } from "@mui/lab";
 import React, { useState } from "react";
 
 // Components Imports
-import { HomeSettings } from "./home-settings";
-import { HomeAccount } from "./home-account";
 import { HomeAbout } from "./home-about";
 
 const map = new Map<string, React.ReactNode>();
-map.set("settings", <HomeSettings />);
-map.set("account", <HomeAccount />);
 map.set("about", <HomeAbout />);
 
 const tabList = Array.from(map.keys()).map((item) => (

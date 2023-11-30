@@ -15,6 +15,7 @@ import { BlankMenu } from "./blank-menu";
 
 // React Imports
 import React from "react";
+void React;
 
 export function Blank() {
   return (
