@@ -14,7 +14,7 @@ import Nprogress from "nprogress";
 
 import { useAcl } from "@/configs/acl";
 
-export function Component() {
+export function RootRoute() {
   const acl = useAcl();
 
   // Router Hooks
@@ -27,6 +27,7 @@ export function Component() {
   }, [outlet]);
 
   React.useEffect(() => {
+    void routeNode;
     Nprogress.done();
 
     return () => {
