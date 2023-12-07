@@ -13,16 +13,22 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import "@fontsource/roboto/900.css";
 
-render();
+init();
 
-function render() {
-  const el = document.getElementById("root");
-  if (!el) {
-    console.error("Excepted element, got falsy");
+/**
+ * @description Initialize React Application
+ */
+function init() {
+  const container = document.getElementById("root");
+
+  // No Container Element
+  if (!container) {
+    console.error("Can not find element #root");
     return;
   }
 
-  ReactDOM.createRoot(el).render(
+  // Has Container Element
+  ReactDOM.createRoot(container).render(
     <React.StrictMode>
       <BlankApp />
     </React.StrictMode>
