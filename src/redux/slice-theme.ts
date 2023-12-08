@@ -8,7 +8,7 @@ export const sliceTheme = createSlice({
     reset(s) {
       Object.assign(s, initialState());
     },
-    mode(s, { payload }: PayloadAction<ThemeConfig["mode"]>) {
+    mode(s, { payload }: PayloadAction<Theme["mode"]>) {
       s.mode = payload;
     },
     bgAlpha(s, { payload }: PayloadAction<number>) {
@@ -20,7 +20,7 @@ export const sliceTheme = createSlice({
   },
 });
 
-function initialState(): ThemeConfig {
+function initialState(): Theme {
   return {
     mode: "auto",
     bgAlpha: 0,
@@ -28,7 +28,7 @@ function initialState(): ThemeConfig {
   };
 }
 
-export interface ThemeConfig {
+interface Theme {
   mode: "dark" | "light" | "auto";
   bgAlpha: number;
   bgBlur: number;
