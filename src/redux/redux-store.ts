@@ -1,5 +1,6 @@
 // Redux Toolkit Imports
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { setupListeners } from "@reduxjs/toolkit/query";
 
 // Persist Imports
 import {
@@ -23,7 +24,7 @@ import { sliceTheme } from "./slice-theme";
 // Create Store
 export const store = configureStore({
   reducer: persistReducer(
-    // Persist configuration
+    // Persist Configuration
     {
       key: import.meta.env.VITE_REDUX_PERSISTER_KEY,
       version: 1,
@@ -31,7 +32,7 @@ export const store = configureStore({
       blacklist: [sliceLoginSession.name],
     },
 
-    // Root reducer
+    // Root Reducer
     combineReducers({
       [sliceLoginLocal.name]: sliceLoginLocal.reducer,
       [sliceLoginSession.name]: persistReducer(
@@ -56,9 +57,15 @@ export const store = configureStore({
   },
 });
 
-// Create Persisted Store
+/**
+ * Optional, but required for refetchOnFocus/refetchOnReconnect behaviors
+ * See `setupListeners` docs - takes an optional callback as the 2nd arg for customization
+ */
+setupListeners(store.dispatch);
+
+// Create Persist Store
 export const persistor = persistStore(store);
 
-// ** Types
+// Store Types
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
