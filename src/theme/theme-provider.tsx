@@ -23,8 +23,8 @@ import React from "react";
 // Hooks Imports
 import { useIsDark } from "@/hooks/dom";
 
-// Redux Imports
-import { useAppSelector } from "@/redux";
+// Store Imports
+import { useThemeStore } from "@/hooks/store";
 
 void ScopedCssBaseline;
 
@@ -33,8 +33,8 @@ export function ThemeProvider(props: React.PropsWithChildren) {
   const { children } = props;
 
   // Redux Hooks
-  const mode = useAppSelector((s) => {
-    return s.theme.mode;
+  const mode = useThemeStore((s) => {
+    return s.mode;
   });
   const isDarkMedia = useIsDark();
 

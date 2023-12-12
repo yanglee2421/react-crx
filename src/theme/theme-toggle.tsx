@@ -3,7 +3,8 @@ import { IconButton, IconButtonProps } from "@mui/material";
 import { LightModeOutlined, DarkModeOutlined } from "@mui/icons-material";
 
 // Redux Imports
-import { useAppSelector, useAppDispatch, sliceTheme } from "@/redux";
+import { useThemeStore } from "@/hooks/store";
+import { useShallow } from "zustand/react/shallow";
 
 // React Imports
 import React from "react";
@@ -12,11 +13,12 @@ export function ThemeToggle(props: ThemeToggleProps) {
   // ** Props
   const { ...restProps } = props;
 
-  const mode = useAppSelector((s) => {
-    return s.theme.mode;
-  });
+  const [mode, setMode] = useThemeStore(
+    useShallow((s) => {
+      return [s.mode, s.setMode];
+    })
+  );
   const isDark = mode === "dark";
-  const dispatch = useAppDispatch();
 
   // Icon Element
   const iconEl = React.useMemo(() => {
@@ -26,7 +28,7 @@ export function ThemeToggle(props: ThemeToggleProps) {
 
   // Handle Toogle
   const handleClick = () => {
-    dispatch(sliceTheme.actions.mode(isDark ? "light" : "dark"));
+    setMode(isDark ? "light" : "dark");
   };
 
   return (

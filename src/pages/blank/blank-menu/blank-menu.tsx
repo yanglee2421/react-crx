@@ -30,8 +30,10 @@ import { GlobalBg } from "./global-bg";
 // Query Imports
 import { useBgImgMutation, useBgImgQuery } from "@/hooks/api-localforage";
 
-// Redux Imports
-import { useAppDispatch, useAppSelector, sliceTheme } from "@/redux";
+// Store Imports
+import { useThemeStore } from "@/hooks/store";
+
+// Storage Imports
 import localforage from "localforage";
 
 export function BlankMenu() {
@@ -41,13 +43,11 @@ export function BlankMenu() {
     return theme.breakpoints.down("sm");
   });
 
-  const dispatch = useAppDispatch();
-  const bgAlpha = useAppSelector((s) => {
-    return s.theme.bgAlpha;
-  });
-  const bgBlur = useAppSelector((s) => {
-    return s.theme.bgBlur;
-  });
+  const themeStore = useThemeStore(
+    ({ bgAlpha, bgBlur, setBgAlpha, setBgBlur }) => {
+      return { bgAlpha, bgBlur, setBgAlpha, setBgBlur };
+    }
+  );
 
   // Query Hooks
   const bgImgQuery = useBgImgQuery();
@@ -75,7 +75,7 @@ export function BlankMenu() {
     void evt;
 
     if (typeof v === "number") {
-      dispatch(sliceTheme.actions.bgAlpha(v));
+      themeStore.setBgAlpha(v);
     }
   };
 
@@ -83,7 +83,7 @@ export function BlankMenu() {
     void evt;
 
     if (typeof v === "number") {
-      dispatch(sliceTheme.actions.bgBlur(v));
+      themeStore.setBgBlur(v);
     }
   };
 
@@ -104,8 +104,8 @@ export function BlankMenu() {
       <GlobalBg
         loading={bgImgMutation.isPending}
         bgImg={bgImgQuery.data || ""}
-        bgAlpha={bgAlpha}
-        bgBlur={bgBlur}
+        bgAlpha={themeStore.bgAlpha}
+        bgBlur={themeStore.bgBlur}
       />
       <IconButton
         onClick={handleDrawerOpen}
@@ -172,12 +172,12 @@ export function BlankMenu() {
                     </CardContent>
                     <CardContent>
                       <Slider
-                        value={bgAlpha}
+                        value={themeStore.bgAlpha}
                         onChange={handleBgAlphaChange}
                         valueLabelDisplay="auto"
                       />
                       <Slider
-                        value={bgBlur}
+                        value={themeStore.bgBlur}
                         onChange={handleBgBlurChange}
                         valueLabelDisplay="auto"
                       />
