@@ -32,6 +32,7 @@ import { useBgImgMutation, useBgImgQuery } from "@/hooks/api-localforage";
 
 // Store Imports
 import { useThemeStore } from "@/hooks/store";
+import { useShallow } from "zustand/react/shallow";
 
 // Storage Imports
 import localforage from "localforage";
@@ -44,9 +45,14 @@ export function BlankMenu() {
   });
 
   const themeStore = useThemeStore(
-    ({ bgAlpha, bgBlur, setBgAlpha, setBgBlur }) => {
-      return { bgAlpha, bgBlur, setBgAlpha, setBgBlur };
-    }
+    useShallow((store) => {
+      return {
+        bgAlpha: store.bgAlpha,
+        bgBlur: store.bgBlur,
+        setBgAlpha: store.setBgAlpha,
+        setBgBlur: store.setBgBlur,
+      };
+    })
   );
 
   // Query Hooks
