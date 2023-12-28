@@ -13,19 +13,23 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import "@fontsource/roboto/900.css";
 
-init();
+const container = (() => {
+  const containerId = "root";
 
-function init() {
-  const container = document.getElementById("root");
-
-  if (!container) {
-    console.error("Can not find element #root");
-    return;
+  const existedEl = document.getElementById(containerId);
+  if (existedEl) {
+    return existedEl;
   }
 
-  ReactDOM.createRoot(container).render(
-    <React.StrictMode>
-      <BlankApp />
-    </React.StrictMode>
-  );
-}
+  const newEl = document.createElement("div");
+  newEl.id = containerId;
+  document.body.append(newEl);
+
+  return newEl;
+})();
+
+ReactDOM.createRoot(container).render(
+  <React.StrictMode>
+    <BlankApp />
+  </React.StrictMode>
+);
