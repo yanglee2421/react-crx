@@ -1,24 +1,24 @@
+// React Imports
+import React from "react";
+
 // MUI Imports
+import {
+  ListItemButton,
+  Collapse,
+  ListItemIcon,
+  ListItemText,
+  ListItemButtonProps,
+} from "@mui/material";
 import {
   FiberManualRecordOutlined,
   KeyboardArrowRight,
 } from "@mui/icons-material";
-import {
-  Collapse,
-  ListItemButton,
-  ListItemButtonProps,
-  ListItemIcon,
-  ListItemText,
-} from "@mui/material";
-
-// React Imports
-import React from "react";
 
 export function MenuGroup(props: MenuGroupProps) {
   // ** Props
-  const { label, children, icon, ...restProps } = props;
+  const { label, icon, children, ...restProps } = props;
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
   const toggleHandler = () => {
     setOpen((p) => !p);
   };
@@ -48,7 +48,7 @@ export function MenuGroup(props: MenuGroupProps) {
       <ListItemButton
         onClick={toggleHandler}
         sx={{
-          bgcolor(theme) {
+          backgroundColor(theme) {
             return open ? theme.palette.action.selected : void 0;
           },
         }}

@@ -1,28 +1,28 @@
-// MUI Imports
-import {
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  ListItemButtonProps,
-} from "@mui/material";
-import { FiberManualRecordOutlined } from "@mui/icons-material";
-
 // React Imports
 import React from "react";
 
+// MUI Imports
+import {
+  ListItemButton,
+  ListItemButtonProps,
+  ListItemIcon,
+  ListItemText,
+} from "@mui/material";
+import { FiberManualRecordOutlined } from "@mui/icons-material";
+
 // Router Imports
 import {
-  Link,
   To,
   useResolvedPath,
-  RelativeRoutingType,
   useLocation,
+  RelativeRoutingType,
   UNSAFE_NavigationContext,
+  Link,
 } from "react-router-dom";
 
 export function MenuLink(props: MenuLinkProps) {
   // ** Props
-  const { label, to, relative, caseSensitive, end, icon, ...restProps } = props;
+  const { label, icon, to, end, caseSensitive, relative, ...restProps } = props;
 
   // Icon node
   const iconNode = React.useMemo(() => {
@@ -41,8 +41,8 @@ export function MenuLink(props: MenuLinkProps) {
     : path.pathname;
 
   if (!caseSensitive) {
-    toPathname = toPathname.toLowerCase();
     locationPathname = locationPathname.toLowerCase();
+    toPathname = toPathname.toLowerCase();
   }
 
   const isActive =
@@ -59,11 +59,11 @@ export function MenuLink(props: MenuLinkProps) {
   );
 }
 
-export interface MenuLinkProps extends ListItemButtonProps {
+export type MenuLinkProps = ListItemButtonProps & {
   label: React.ReactNode;
-  to: To;
-  relative?: RelativeRoutingType;
-  caseSensitive?: boolean;
-  end?: boolean;
   icon?: React.ReactNode;
-}
+  to: To;
+  end?: boolean;
+  caseSensitive?: boolean;
+  relative?: RelativeRoutingType;
+};

@@ -1,2 +1,2 @@
-export * from "./acl-provider";
-export * from "./use-acl";
+export * from "./defineAbilityFor";
+export * from "./useAcl";
