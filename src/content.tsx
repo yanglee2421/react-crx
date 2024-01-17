@@ -2,12 +2,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-// APP Imports
-import { Content } from "@/apps/content";
-
 const container = (() => {
   const containerId = "root";
   const existedEl = document.getElementById(containerId);
+
   if (existedEl) {
     return existedEl;
   }
@@ -21,7 +19,7 @@ const container = (() => {
 
 ReactDOM.createRoot(container).render(
   <React.StrictMode>
-    <Content />
+    <></>
   </React.StrictMode>
 );
 
