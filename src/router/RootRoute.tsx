@@ -23,6 +23,28 @@ export function RootRoute() {
   const [auth] = useAuth();
   const acl = defineAbilityFor(auth.currentUser ? "admin" : "");
 
+  React.useEffect(() => {
+    void matches;
+    NProgress.done();
+    return () => {
+      NProgress.start();
+    };
+  }, [matches]);
+
+  React.useEffect(() => {
+    const currentRoute = matches[matches.length - 1];
+
+    if (!currentRoute) return;
+
+    const title = Reflect.get(currentRoute.handle || {}, "title");
+
+    if (!title) return;
+
+    if (typeof title === "string") {
+      document.title = title;
+    }
+  }, [matches]);
+
   const routeNode = (() => {
     const currentRoute = matches[matches.length - 1];
 
@@ -46,13 +68,8 @@ export function RootRoute() {
         // Authorized pass
         if (
           acl.can(
-            String(
-              Reflect.get(Object(currentRoute.handle), "aclAction") || "read"
-            ),
-            String(
-              Reflect.get(Object(currentRoute.handle), "aclSubject") ||
-                "fallback"
-            )
+            Reflect.get(currentRoute.handle || {}, "aclAction") || "read",
+            Reflect.get(currentRoute.handle || {}, "aclSubject") || "fallback"
           )
         ) {
           return outlet;
@@ -64,29 +81,5 @@ export function RootRoute() {
     }
   })();
 
-  React.useEffect(() => {
-    void matches;
-    NProgress.done();
-    return () => {
-      NProgress.start();
-    };
-  }, [matches]);
-
-  React.useEffect(() => {
-    const currentRoute = matches[matches.length - 1];
-
-    if (!currentRoute) return;
-
-    const title = Reflect.get(Object(currentRoute.handle), "title");
-
-    if (!title) return;
-
-    if (typeof title === "string") {
-      document.title = title;
-    }
-  }, [matches]);
-
   return <AclContext.Provider value={acl}>{routeNode}</AclContext.Provider>;
 }
-// ck_bc5124569889f94574e6fb878677c85db8300749
-// cs_40da90a7ae05b183a5cdd59148254ecdbc817c01
