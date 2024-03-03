@@ -1,28 +1,20 @@
-// Vite Imports
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { crx, defineManifest } from "@crxjs/vite-plugin";
-
-// NodeJs Imports
 import { dirname, resolve } from "node:path";
 import { fileURLToPath, URL } from "node:url";
 
 // https://vitejs.dev/config/
 export default defineConfig((configEnv) => {
   const __dirname = dirname(fileURLToPath(import.meta.url));
-  void configEnv;
 
   return {
     plugins: [react(), crx({ manifest: manifest() })],
-
-    // Path Alias
     resolve: {
       alias: {
         "@": fileURLToPath(new URL("./src", import.meta.url)),
       },
     },
-
-    // ** CSS
     css: {
       preprocessorOptions: {
         scss: {
@@ -34,18 +26,6 @@ export default defineConfig((configEnv) => {
       },
     },
 
-    // Dev Server
-    server: {
-      port: 3005,
-      strictPort: true,
-      hmr: {
-        port: 3005,
-        // clientPort: 3005,
-        // overlay: true,
-      },
-    },
-
-    // Build Config
     build: {
       rollupOptions: {
         input: {
@@ -53,6 +33,14 @@ export default defineConfig((configEnv) => {
           options_page: resolve(__dirname, "./options_page.html"),
           blank: resolve(__dirname, "./blank.html"),
         },
+      },
+    },
+
+    server: {
+      port: 3005,
+      strictPort: true,
+      hmr: {
+        port: 3005,
       },
     },
   };
