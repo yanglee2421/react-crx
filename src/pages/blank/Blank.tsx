@@ -1,7 +1,5 @@
 import { Box } from "@mui/material";
-
 import React from "react";
-
 import { QueryProvider } from "@/components/QueryProvider";
 import { Customer } from "@/components/shared/Customer";
 import { ImageBackground } from "@/components/ui/ImageBackground";

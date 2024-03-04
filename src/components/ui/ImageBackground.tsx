@@ -6,10 +6,8 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useImmer } from "use-immer";
-
 import fallbackBgImg from "@/assets/images/snow-village.jpg";
 import { useForageFileQuery } from "@/hooks/api-localforage/useForageFileQuery";
-
 import type { BoxProps } from "@mui/material";
 
 export function ImageBackground(props: Props) {
