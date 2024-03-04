@@ -1,13 +1,14 @@
 {
   "compilerOptions": {
-    "types": ["node", "chrome"],
+    "types": ["node"],
 
     // Initialized by vite
     "composite": true,
     "skipLibCheck": true,
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "strict": true
   },
   "include": ["vite.config.ts"]
 }
