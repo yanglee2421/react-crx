@@ -7,6 +7,6 @@ if (container) {
   ReactDOM.createRoot(container).render(
     <React.StrictMode>
       <></>
-    </React.StrictMode>
+    </React.StrictMode>,
   );
 }

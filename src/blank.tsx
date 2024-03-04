@@ -1,6 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
+import { Blank } from "@/pages/blank/Blank";
+
 import "@fontsource/roboto/100.css";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
@@ -13,7 +15,7 @@ const container = document.getElementById("root");
 if (container) {
   ReactDOM.createRoot(container).render(
     <React.StrictMode>
-      <></>
-    </React.StrictMode>
+      <Blank></Blank>
+    </React.StrictMode>,
   );
 }

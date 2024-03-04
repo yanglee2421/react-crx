@@ -1,12 +1,14 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import { crx, defineManifest } from "@crxjs/vite-plugin";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath, URL } from "node:url";
+
+import { crx, defineManifest } from "@crxjs/vite-plugin";
+import react from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
 
 // https://vitejs.dev/config/
 export default defineConfig((configEnv) => {
   const __dirname = dirname(fileURLToPath(import.meta.url));
+  void configEnv;
 
   return {
     plugins: [react(), crx({ manifest: manifest() })],

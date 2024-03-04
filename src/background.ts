@@ -24,7 +24,7 @@ function toggleContextMenus(showContextMenus: boolean) {
 
 function contextMenusListener(
   btn: chrome.contextMenus.OnClickData,
-  tab?: chrome.tabs.Tab
+  tab?: chrome.tabs.Tab,
 ) {
   console.log(btn, tab);
   chrome.tabs.sendMessage(tab?.id || 0, "msg");
