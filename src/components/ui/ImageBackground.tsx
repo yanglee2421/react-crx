@@ -109,7 +109,7 @@ export function ImageBackground(props: Props) {
               return theme.transitions.create(["background-color"]);
             },
           }}
-        ></Box>
+        />
 
         {/* Spin Icon */}
         {query.isPending && (
