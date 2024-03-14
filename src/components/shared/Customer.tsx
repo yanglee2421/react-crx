@@ -34,6 +34,7 @@ import { useForageFileMutation } from "@/hooks/api-localforage/useForageFileMuta
 import { useForageFileQuery } from "@/hooks/api-localforage/useForageFileQuery";
 import { useThemeStore } from "@/hooks/store/useThemeStore";
 import type { Theme } from "@mui/material";
+import ReactDOM from "react-dom";
 
 export function Customer() {
   const query = useForageFileQuery("bg-img");
@@ -60,7 +61,7 @@ export function Customer() {
         bgBlur: store.bgBlur,
         setBgBlur: store.setBgBlur,
       };
-    }),
+    })
   );
 
   const handleDrawerClose = () => {
@@ -99,17 +100,16 @@ export function Customer() {
     };
   }, [updateSetting]);
 
-  return (
+  return ReactDOM.createPortal(
     <>
       <IconButton
         onClick={handleDrawerOpen}
         color="inherit"
         sx={{
-          position: "absolute",
+          position: "fixed",
           top: "1rem",
           right: "1rem",
-          color: "common.white",
-          bgcolor: "action.active",
+          zIndex: 5,
         }}
       >
         <SettingsOutlined color="inherit"></SettingsOutlined>
@@ -166,13 +166,13 @@ export function Customer() {
                           }}
                         >
                           {setting.wallpaperCollapsed ? (
-                            <AddOutlined></AddOutlined>
+                            <AddOutlined />
                           ) : (
-                            <RemoveOutlined></RemoveOutlined>
+                            <RemoveOutlined />
                           )}
                         </IconButton>
                       }
-                    ></CardHeader>
+                    />
                     <Collapse in={!setting.wallpaperCollapsed}>
                       <CardContent>
                         <CardActionArea
@@ -193,7 +193,7 @@ export function Customer() {
                                   alt="Background image preview"
                                   width={setting.imageWidth}
                                   height={setting.imageHeight}
-                                ></StyledImg>
+                                />
                               );
                             }
 
@@ -204,7 +204,7 @@ export function Customer() {
                                   alt={query.error.message}
                                   width={setting.imageWidth}
                                   height={setting.imageHeight}
-                                ></StyledImg>
+                                />
                               );
                             }
 
@@ -217,7 +217,7 @@ export function Customer() {
                                 }}
                                 width={setting.imageWidth}
                                 height={setting.imageHeight}
-                              ></StyledImg>
+                              />
                             );
                           })()}
                           <input
@@ -252,7 +252,7 @@ export function Customer() {
                               }
                             }}
                             valueLabelDisplay="auto"
-                          ></Slider>
+                          />
                         </FormControl>
                         <FormControl fullWidth>
                           <FormLabel>
@@ -270,7 +270,7 @@ export function Customer() {
                               }
                             }}
                             valueLabelDisplay="auto"
-                          ></Slider>
+                          />
                         </FormControl>
                       </CardContent>
                       <CardActions>
@@ -300,7 +300,8 @@ export function Customer() {
           </Box>
         </Box>
       </SwipeableDrawer>
-    </>
+    </>,
+    document.body
   );
 }
 

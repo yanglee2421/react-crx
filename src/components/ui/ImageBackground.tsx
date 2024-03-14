@@ -9,9 +9,11 @@ import { useImmer } from "use-immer";
 import fallbackBgImg from "@/assets/images/snow-village.jpg";
 import { useForageFileQuery } from "@/hooks/api-localforage/useForageFileQuery";
 import type { BoxProps } from "@mui/material";
+import ReactDOM from "react-dom";
+import { Customer } from "@/components/shared/Customer";
 
 export function ImageBackground(props: Props) {
-  const { alpha, blur, children, ...restProps } = props;
+  const { alpha, blur } = props;
 
   const query = useForageFileQuery("bg-img");
 
@@ -46,97 +48,91 @@ export function ImageBackground(props: Props) {
     };
   }, [updateState]);
 
-  return (
-    <Box position={"fixed"} sx={{ inset: 0 }} {...restProps}>
-      {/* Background */}
-      <Box
-        ref={containerRef}
-        position={"absolute"}
-        zIndex={1}
-        sx={{
-          inset: `calc(${20 * (blur / 100)}px * -2)`,
-          transition(theme) {
-            return theme.transitions.create(["filter", "inset"]);
-          },
-          filter: `blur(${20 * (blur / 100)}px)`,
-        }}
-      >
-        {/* Image */}
-        {(() => {
-          if (query.isPending) {
-            return (
-              <StyledImg
-                src={fallbackBgImg}
-                alt="Background image"
-                width={state.width}
-                height={state.height}
-              ></StyledImg>
-            );
-          }
-
-          if (query.isError) {
-            return (
-              <StyledImg
-                src={fallbackBgImg}
-                alt={query.error.message}
-                width={state.width}
-                height={state.height}
-              ></StyledImg>
-            );
-          }
-
+  return ReactDOM.createPortal(
+    <Box
+      ref={containerRef}
+      position={"fixed"}
+      zIndex={1}
+      sx={{
+        inset: `calc(${20 * (blur / 100)}px * -2)`,
+        transition(theme) {
+          return theme.transitions.create(["filter", "inset"]);
+        },
+        filter: `blur(${20 * (blur / 100)}px)`,
+      }}
+    >
+      {/* Image */}
+      {(() => {
+        if (query.isPending) {
           return (
             <StyledImg
-              src={query.data.src}
-              alt={query.data.filename}
-              onError={() => {
-                query.refetch();
-              }}
+              src={fallbackBgImg}
+              alt="Background image"
               width={state.width}
               height={state.height}
-            ></StyledImg>
+            />
           );
-        })()}
+        }
 
-        {/* Mask */}
-        <Box
-          position={"absolute"}
-          zIndex={2}
-          bgcolor={muiAlpha("#000", alpha / 100)}
+        if (query.isError) {
+          return (
+            <StyledImg
+              src={fallbackBgImg}
+              alt={query.error.message}
+              width={state.width}
+              height={state.height}
+            />
+          );
+        }
+
+        return (
+          <StyledImg
+            src={query.data.src}
+            alt={query.data.filename}
+            onError={() => {
+              query.refetch();
+            }}
+            width={state.width}
+            height={state.height}
+          />
+        );
+      })()}
+
+      {/* Mask */}
+      <Box
+        position={"absolute"}
+        zIndex={2}
+        bgcolor={muiAlpha("#000", alpha / 100)}
+        sx={{
+          inset: 0,
+          transition(theme) {
+            return theme.transitions.create(["background-color"]);
+          },
+        }}
+      />
+
+      {/* Spin Icon */}
+      {query.isPending && (
+        <CircularProgress
+          size={24}
           sx={{
-            inset: 0,
-            transition(theme) {
-              return theme.transitions.create(["background-color"]);
-            },
+            position: "absolute",
+            zIndex: 3,
+            left: 24,
+            bottom: 24,
           }}
         />
+      )}
 
-        {/* Spin Icon */}
-        {query.isPending && (
-          <CircularProgress
-            size={24}
-            sx={{
-              position: "absolute",
-              zIndex: 3,
-              left: 24,
-              bottom: 24,
-            }}
-          ></CircularProgress>
-        )}
-      </Box>
-
-      {/* Content */}
-      <Box position={"absolute"} zIndex={1} sx={{ inset: 0 }}>
-        {children}
-      </Box>
-    </Box>
+      <Customer />
+    </Box>,
+    document.body
   );
 }
 
 type Props = BoxProps & {
   alpha: number;
   blur: number;
-  children: React.PropsWithChildren;
 };
 
 const StyledImg = styled("img")({
