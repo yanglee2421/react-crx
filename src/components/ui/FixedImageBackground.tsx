@@ -3,19 +3,24 @@ import {
   styled,
   CircularProgress,
   alpha as muiAlpha,
+  useMediaQuery,
 } from "@mui/material";
 import React from "react";
 import { useImmer } from "use-immer";
 import fallbackBgImg from "@/assets/images/snow-village.jpg";
 import { useForageFileQuery } from "@/hooks/api-localforage/useForageFileQuery";
-import type { BoxProps } from "@mui/material";
+import type { BoxProps, Theme } from "@mui/material";
 
 export function FixedImageBackground(props: Props) {
   const { alpha, blur } = props;
 
-  const query = useForageFileQuery("bg-img");
-
   const containerRef = React.useRef<HTMLDivElement>(null);
+
+  const smallScreen = useMediaQuery<Theme>((theme) => {
+    return theme.breakpoints.up("sm");
+  });
+
+  const query = useForageFileQuery(smallScreen ? "bg-img" : "mobile-bgimg");
 
   const [state, updateState] = useImmer({
     width: 0,
