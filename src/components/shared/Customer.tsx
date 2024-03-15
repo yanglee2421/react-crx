@@ -183,8 +183,7 @@ export function Customer() {
                           component="label"
                           title="click to change image"
                           sx={{
-                            color: "common.white",
-                            aspectRatio: "16/9",
+                            aspectRatio: { xs: "9/16", sm: "16/9" },
                             overflow: "hidden",
                           }}
                         >
