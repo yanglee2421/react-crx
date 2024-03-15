@@ -1,42 +1,24 @@
-import { Box, Typography, ImageList, ImageListItem } from "@mui/material";
+import { QuestionAnswerOutlined } from "@mui/icons-material";
+import {
+  Box,
+  Typography,
+  ImageList,
+  ImageListItem,
+  Stack,
+  IconButton,
+} from "@mui/material";
 import React from "react";
-import { ImageBackground } from "@/components/ui/ImageBackground";
-import { useThemeStore } from "@/hooks/store/useThemeStore";
+import { Customer } from "@/components/shared/Customer";
+import { FixedImageBackground } from "@/components/ui/FixedImageBackground";
 import { useJokeList } from "@/hooks/api-autumnfish/useJokeList";
 import { useBingGet } from "@/hooks/api-bing/useBingGet";
+import { useThemeStore } from "@/hooks/store/useThemeStore";
 
 export function Blank() {
   const bgAlpha = useThemeStore((store) => store.bgAlpha);
   const bgBlur = useThemeStore((store) => store.bgBlur);
   const deferredAlpha = React.useDeferredValue(bgAlpha);
   const deferredBlur = React.useDeferredValue(bgBlur);
-
-  // React.useEffect(() => {
-  //   const controller = new AbortController();
-
-  //   void (async () => {
-  //     const res = await fetch("http://localhost:3002/chat/stream", {
-  //       signal: controller.signal,
-  //     });
-  //     const reader = res.body?.getReader();
-
-  //     while (reader) {
-  //       const { done, value } = await reader.read();
-  //       const detext = new TextDecoder("utf8");
-  //       const text = detext.decode(value);
-
-  //       console.log(text);
-
-  //       if (done) {
-  //         break;
-  //       }
-  //     }
-  //   })();
-
-  //   return () => {
-  //     controller.abort();
-  //   };
-  // }, []);
 
   const jokeQuery = useJokeList({ num: 1 });
   const bingQuery = useBingGet({
@@ -47,9 +29,22 @@ export function Blank() {
 
   return (
     <>
-      <ImageBackground alpha={deferredAlpha} blur={deferredBlur} />
-      <Box height={400}></Box>
+      <FixedImageBackground alpha={deferredAlpha} blur={deferredBlur} />
+      <Stack
+        position={"fixed"}
+        zIndex={3}
+        top={"1.25rem"}
+        right={"1.25rem"}
+        direction={"row"}
+        spacing={3}
+      >
+        <IconButton>
+          <QuestionAnswerOutlined />
+        </IconButton>
+        <Customer />
+      </Stack>
       <Box position={"relative"} zIndex={2} sx={{ overflow: "auto" }}>
+        <Box height={400}>loremsadlkjalsdj</Box>
         {(() => {
           if (jokeQuery.isPending) {
             return "pending";

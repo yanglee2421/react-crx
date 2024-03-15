@@ -1,5 +1,5 @@
 import { axiosAutumnfish } from "./axiosAutumnfish";
-import { AxiosRequestConfig } from "axios";
+import type { AxiosRequestConfig } from "axios";
 
 export function joke_list(req: Req) {
   return axiosAutumnfish<unknown, string[]>({

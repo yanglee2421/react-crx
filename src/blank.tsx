@@ -6,8 +6,8 @@ import "@fontsource/roboto/700.css";
 import "@fontsource/roboto/900.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { Blank } from "@/pages/blank/Blank";
 import { QueryProvider } from "@/components/QueryProvider";
+import { Blank } from "@/pages/blank/Blank";
 import { ThemeProvider } from "@/theme/ThemeProvider";
 
 const container = document.getElementById("root");
@@ -20,6 +20,6 @@ if (container) {
           <Blank />
         </ThemeProvider>
       </QueryProvider>
-    </React.StrictMode>
+    </React.StrictMode>,
   );
 }

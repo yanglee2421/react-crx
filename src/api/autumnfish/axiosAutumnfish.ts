@@ -17,5 +17,5 @@ axiosAutumnfish.interceptors.response.use(
   },
   (error: AxiosError) => {
     throw new Error(error.message);
-  }
+  },
 );

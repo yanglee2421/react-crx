@@ -4,6 +4,10 @@ import {
   SettingsOutlined,
   AddOutlined,
   RemoveOutlined,
+  LightModeOutlined,
+  DarkModeOutlined,
+  DesktopWindowsOutlined,
+  LoopOutlined,
 } from "@mui/icons-material";
 import {
   IconButton,
@@ -24,45 +28,47 @@ import {
   Collapse,
   FormLabel,
   FormControl,
+  Grid,
+  RadioGroup,
+  Radio,
+  alpha,
 } from "@mui/material";
 import React from "react";
+import ReactDOM from "react-dom";
 import { useImmer } from "use-immer";
-import { useShallow } from "zustand/react/shallow";
 import snowVillage from "@/assets/images/snow-village.jpg";
 import { ScrollView } from "@/components/ui/ScrollView";
 import { useForageFileMutation } from "@/hooks/api-localforage/useForageFileMutation";
 import { useForageFileQuery } from "@/hooks/api-localforage/useForageFileQuery";
 import { useThemeStore } from "@/hooks/store/useThemeStore";
 import type { Theme } from "@mui/material";
-import ReactDOM from "react-dom";
 
 export function Customer() {
-  const query = useForageFileQuery("bg-img");
-  const mutation = useForageFileMutation();
-
   const imgBoxRef = React.useRef<HTMLLabelElement>(null);
+
+  const smallScreen = useMediaQuery<Theme>((theme) => {
+    return theme.breakpoints.up("sm");
+  });
+
+  const fileKey = smallScreen ? "bg-img" : "mobile-bgimg";
+
+  const query = useForageFileQuery(fileKey);
+  const mutation = useForageFileMutation();
 
   const [setting, updateSetting] = useImmer({
     showDrawer: false,
-    wallpaperCollapsed: false,
     imageWidth: 0,
     imageHeight: 0,
+    wallpaperCollapsed: false,
+    modeCollapsed: false,
   });
 
-  const isExtraSmall = useMediaQuery<Theme>((theme) => {
-    return theme.breakpoints.down("sm");
-  });
-
-  const themeStore = useThemeStore(
-    useShallow((store) => {
-      return {
-        bgAlpha: store.bgAlpha,
-        setBgAlpha: store.setBgAlpha,
-        bgBlur: store.bgBlur,
-        setBgBlur: store.setBgBlur,
-      };
-    })
-  );
+  const bgAlpha = useThemeStore((store) => store.bgAlpha);
+  const setBgAlpha = useThemeStore((store) => store.setBgAlpha);
+  const bgBlur = useThemeStore((store) => store.bgBlur);
+  const setBgBlur = useThemeStore((store) => store.setBgBlur);
+  const mode = useThemeStore((store) => store.mode);
+  const setMode = useThemeStore((store) => store.setMode);
 
   const handleDrawerClose = () => {
     updateSetting((prev) => {
@@ -100,46 +106,46 @@ export function Customer() {
     };
   }, [updateSetting]);
 
-  return ReactDOM.createPortal(
+  return (
     <>
-      <IconButton
-        onClick={handleDrawerOpen}
-        color="inherit"
-        sx={{
-          position: "fixed",
-          top: "1rem",
-          right: "1rem",
-          zIndex: 5,
-        }}
-      >
-        <SettingsOutlined color="inherit"></SettingsOutlined>
+      <IconButton onClick={handleDrawerOpen}>
+        <SettingsOutlined />
       </IconButton>
-      <SwipeableDrawer
-        open={setting.showDrawer}
-        onOpen={handleDrawerOpen}
-        onClose={handleDrawerClose}
-        anchor={isExtraSmall ? "top" : "right"}
-        hideBackdrop
-        variant="persistent"
-        sx={{
-          "& > .MuiPaper-root": {
-            height: "100%",
-          },
-        }}
-      >
-        <Box
-          display={"flex"}
-          flexDirection={"column"}
-          width={{ sm: 400 }}
-          height={"100%"}
+      {ReactDOM.createPortal(
+        <SwipeableDrawer
+          open={setting.showDrawer}
+          onOpen={handleDrawerOpen}
+          onClose={handleDrawerClose}
+          anchor={smallScreen ? "right" : "top"}
+          hideBackdrop
+          variant="persistent"
+          sx={{
+            "& > .MuiPaper-root": {
+              height: "100%",
+            },
+          }}
         >
-          <Box p={2}>
-            <IconButton onClick={handleDrawerClose}>
-              <CloseOutlined></CloseOutlined>
-            </IconButton>
-          </Box>
-          <Divider></Divider>
-          <Box flex={1} overflow={"hidden"}>
+          <Box
+            display={"flex"}
+            flexDirection={"column"}
+            width={{ sm: 400 }}
+            height={"100%"}
+          >
+            <Stack
+              direction={"row"}
+              spacing={1}
+              sx={{
+                p: 2,
+              }}
+            >
+              <IconButton onClick={handleDrawerClose}>
+                <CloseOutlined />
+              </IconButton>
+              <IconButton>
+                <LoopOutlined />
+              </IconButton>
+            </Stack>
+            <Divider />
             <ScrollView>
               <Box
                 p={3}
@@ -150,12 +156,9 @@ export function Customer() {
                 <Stack spacing={3}>
                   <Card>
                     <CardHeader
-                      title={<Typography variant="h6">Wallpaper</Typography>}
-                      subheader={
-                        <Typography variant="subtitle2" color="action.active">
-                          These settings are saved locally on your
-                        </Typography>
-                      }
+                      title="Wallpaper"
+                      titleTypographyProps={{ variant: "h6" }}
+                      subheader="These settings are saved locally on your"
                       action={
                         <IconButton
                           onClick={() => {
@@ -226,7 +229,7 @@ export function Customer() {
                               const file = evt.target.files?.item(0);
 
                               if (file) {
-                                mutation.mutate({ file, fileKey: "bg-img" });
+                                mutation.mutate({ file, fileKey });
                               }
                             }}
                             type="file"
@@ -243,12 +246,12 @@ export function Customer() {
                             </Typography>
                           </FormLabel>
                           <Slider
-                            value={themeStore.bgAlpha}
+                            value={bgAlpha}
                             onChange={(evt, v) => {
                               void evt;
 
                               if (typeof v === "number") {
-                                themeStore.setBgAlpha(v);
+                                setBgAlpha(v);
                               }
                             }}
                             valueLabelDisplay="auto"
@@ -261,12 +264,12 @@ export function Customer() {
                             </Typography>
                           </FormLabel>
                           <Slider
-                            value={themeStore.bgBlur}
+                            value={bgBlur}
                             onChange={(evt, v) => {
                               void evt;
 
                               if (typeof v === "number") {
-                                themeStore.setBgBlur(v);
+                                setBgBlur(v);
                               }
                             }}
                             valueLabelDisplay="auto"
@@ -283,7 +286,6 @@ export function Customer() {
                           startIcon={
                             <DownloadOutlined fontSize="small"></DownloadOutlined>
                           }
-                          sx={{ textTransform: "lowercase" }}
                         >
                           download
                         </Button>
@@ -291,21 +293,126 @@ export function Customer() {
                     </Collapse>
                   </Card>
                   <Card>
-                    <CardContent></CardContent>
+                    <CardHeader
+                      title="Mode"
+                      titleTypographyProps={{ variant: "h6" }}
+                      subheader="Dark? Light? System?"
+                      action={
+                        <IconButton
+                          onClick={() => {
+                            updateSetting((prev) => {
+                              prev.modeCollapsed = !prev.modeCollapsed;
+                            });
+                          }}
+                        >
+                          {setting.modeCollapsed ? (
+                            <AddOutlined />
+                          ) : (
+                            <RemoveOutlined />
+                          )}
+                        </IconButton>
+                      }
+                    />
+                    <Collapse in={!setting.modeCollapsed}>
+                      <CardContent>
+                        <RadioGroup
+                          value={mode}
+                          onChange={(evt, value) => {
+                            void evt;
+                            switch (value) {
+                              case "system":
+                              case "light":
+                              case "dark":
+                                React.startTransition(() => {
+                                  setMode(value);
+                                });
+                                break;
+                              default:
+                            }
+                          }}
+                        >
+                          <Grid container spacing={3}>
+                            <Grid item xs={4}>
+                              <StyledLabel>
+                                <LightModeOutlined fontSize="inherit" />
+                                <Radio
+                                  value="light"
+                                  hidden
+                                  sx={{ display: "none" }}
+                                />
+                              </StyledLabel>
+                              <Typography variant="body2">Light</Typography>
+                            </Grid>
+                            <Grid item xs={4}>
+                              <StyledLabel>
+                                <DarkModeOutlined fontSize="inherit" />
+                                <Radio
+                                  value="dark"
+                                  hidden
+                                  sx={{ display: "none" }}
+                                />
+                              </StyledLabel>
+                              <Typography variant="body2">Dark</Typography>
+                            </Grid>
+                            <Grid item xs={4}>
+                              <StyledLabel>
+                                <DesktopWindowsOutlined fontSize="inherit" />
+                                <Radio
+                                  value="system"
+                                  hidden
+                                  sx={{ display: "none" }}
+                                />
+                              </StyledLabel>
+                              <Typography variant="body2">System</Typography>
+                            </Grid>
+                          </Grid>
+                        </RadioGroup>
+                      </CardContent>
+                    </Collapse>
                   </Card>
                 </Stack>
                 <Box height={1000}>465464161</Box>
               </Box>
             </ScrollView>
           </Box>
-        </Box>
-      </SwipeableDrawer>
-    </>,
-    document.body
+        </SwipeableDrawer>,
+        document.body,
+      )}
+    </>
   );
 }
 
-const StyledImg = styled("img")({
-  objectFit: "cover",
-  verticalAlign: "bottom",
+const StyledImg = styled("img")(({ theme }) => {
+  return {
+    objectFit: "cover",
+    verticalAlign: "bottom",
+    borderRadius: theme.shape.borderRadius,
+  };
+});
+
+const StyledLabel = styled("label")(({ theme }) => {
+  const primaryColor = theme.palette.primary.main;
+  return {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 1,
+    borderStyle: "solid",
+    borderRadius: theme.shape.borderRadius + "px",
+    borderColor: theme.palette.divider,
+    fontSize: 32,
+    paddingBlock: theme.spacing(3),
+    cursor: "pointer",
+    transition: theme.transitions.create([
+      "color",
+      "border-color",
+      "background-color",
+    ]),
+    "&:has( input:checked)": {
+      color: primaryColor,
+      borderColor: primaryColor,
+      backgroundColor: alpha(primaryColor, 0.08),
+    },
+  };
 });

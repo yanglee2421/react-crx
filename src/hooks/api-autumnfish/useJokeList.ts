@@ -1,5 +1,6 @@
-import { joke_list, Params } from "@/api/autumnfish/joke_list";
 import { useQuery } from "@tanstack/react-query";
+import { joke_list } from "@/api/autumnfish/joke_list";
+import type { Params } from "@/api/autumnfish/joke_list";
 
 export function useJokeList(params: Params) {
   return useQuery({

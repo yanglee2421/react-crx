@@ -43,6 +43,7 @@ export default defineConfig((configEnv) => {
       hmr: {
         port: 3005,
       },
+      host: true,
     },
   };
 });

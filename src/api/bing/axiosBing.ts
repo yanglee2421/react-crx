@@ -2,7 +2,7 @@ import axios from "axios";
 import type { AxiosError } from "axios";
 
 export const axiosBing = axios.create({
-  baseURL: "https://cn.bing.com",
+  baseURL: "https://www.bing.com",
   timeout: 1000 * 30,
 });
 

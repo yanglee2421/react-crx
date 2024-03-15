@@ -9,10 +9,8 @@ import { useImmer } from "use-immer";
 import fallbackBgImg from "@/assets/images/snow-village.jpg";
 import { useForageFileQuery } from "@/hooks/api-localforage/useForageFileQuery";
 import type { BoxProps } from "@mui/material";
-import ReactDOM from "react-dom";
-import { Customer } from "@/components/shared/Customer";
 
-export function ImageBackground(props: Props) {
+export function FixedImageBackground(props: Props) {
   const { alpha, blur } = props;
 
   const query = useForageFileQuery("bg-img");
@@ -48,7 +46,7 @@ export function ImageBackground(props: Props) {
     };
   }, [updateState]);
 
-  return ReactDOM.createPortal(
+  return (
     <Box
       ref={containerRef}
       position={"fixed"}
@@ -101,7 +99,7 @@ export function ImageBackground(props: Props) {
       {/* Mask */}
       <Box
         position={"absolute"}
-        zIndex={2}
+        zIndex={3}
         bgcolor={muiAlpha("#000", alpha / 100)}
         sx={{
           inset: 0,
@@ -117,16 +115,13 @@ export function ImageBackground(props: Props) {
           size={24}
           sx={{
             position: "absolute",
-            zIndex: 3,
+            zIndex: 4,
             left: 24,
             bottom: 24,
           }}
         />
       )}
-
-      <Customer />
-    </Box>,
-    document.body
+    </Box>
   );
 }
 
@@ -138,6 +133,6 @@ type Props = BoxProps & {
 const StyledImg = styled("img")({
   position: "absolute",
   inset: 0,
-  zIndex: 1,
+  zIndex: 2,
   objectFit: "cover",
 });
