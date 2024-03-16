@@ -78,6 +78,8 @@ export function WallpaperCard() {
     };
   }, [updateSetting]);
 
+  const fallbackImage = new URL(snowVillage, import.meta.url).href;
+
   return (
     <Card>
       <CardHeader
@@ -101,25 +103,8 @@ export function WallpaperCard() {
       />
       <Collapse in={!setting.wallpaperCollapsed}>
         <CardContent>
-          <RadioGroup
-            value={setting.wallpaperSource}
-            onChange={(evt, value) => {
-              void evt;
-              updateSetting((draft) => {
-                draft.wallpaperSource = value;
-              });
-            }}
-            row
-          >
-            <FormControlLabel control={<Radio />} label="Bing" value="bing" />
-            <FormControlLabel
-              control={<Radio />}
-              label="Custom"
-              value="custom"
-            />
-          </RadioGroup>
           {setting.wallpaperSource === "bing" ? (
-            <></>
+            <Box></Box>
           ) : (
             <Box
               ref={imgBoxRef}
@@ -137,7 +122,7 @@ export function WallpaperCard() {
                 if (query.isPending) {
                   return (
                     <StyledImg
-                      src={snowVillage}
+                      src={fallbackImage}
                       alt="Background image preview"
                       width={setting.imageWidth}
                       height={setting.imageHeight}
@@ -148,7 +133,7 @@ export function WallpaperCard() {
                 if (query.isError) {
                   return (
                     <StyledImg
-                      src={snowVillage}
+                      src={fallbackImage}
                       alt={query.error.message}
                       width={setting.imageWidth}
                       height={setting.imageHeight}
@@ -158,6 +143,7 @@ export function WallpaperCard() {
 
                 return (
                   <StyledImg
+                    key="xxx"
                     src={query.data.src}
                     alt={query.data.filename}
                     onError={() => {
@@ -171,7 +157,7 @@ export function WallpaperCard() {
 
               <IconButton
                 LinkComponent={"a"}
-                href={query.data?.src || snowVillage}
+                href={query.data?.src || fallbackImage}
                 download={query.data?.filename}
                 title="download image"
                 sx={{
@@ -237,8 +223,31 @@ export function WallpaperCard() {
               </CardActionArea>
             </Box>
           )}
-        </CardContent>
-        <CardContent>
+
+          <FormControl>
+            <FormLabel>
+              <Typography variant="overline">Source</Typography>
+            </FormLabel>
+
+            <RadioGroup
+              value={setting.wallpaperSource}
+              onChange={(evt, value) => {
+                void evt;
+                updateSetting((draft) => {
+                  draft.wallpaperSource = value;
+                });
+              }}
+              row
+            >
+              <FormControlLabel control={<Radio />} label="Bing" value="bing" />
+              <FormControlLabel
+                control={<Radio />}
+                label="Custom"
+                value="custom"
+              />
+            </RadioGroup>
+          </FormControl>
+
           <FormControl fullWidth>
             <FormLabel>
               <Typography variant="overline">Background alpha</Typography>
