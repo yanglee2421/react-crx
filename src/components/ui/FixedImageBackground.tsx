@@ -54,9 +54,9 @@ export function FixedImageBackground(props: Props) {
   return (
     <Box
       ref={containerRef}
-      position={"fixed"}
-      zIndex={1}
       sx={{
+        position: "fixed",
+        zIndex: 1,
         inset: `calc(${20 * (blur / 100)}px * -2)`,
         transition(theme) {
           return theme.transitions.create(["filter", "inset"]);
@@ -103,11 +103,11 @@ export function FixedImageBackground(props: Props) {
 
       {/* Mask */}
       <Box
-        position={"absolute"}
-        zIndex={3}
-        bgcolor={muiAlpha("#000", alpha / 100)}
         sx={{
+          position: "absolute",
+          zIndex: 3,
           inset: 0,
+          bgcolor: muiAlpha("#000", alpha / 100),
           transition(theme) {
             return theme.transitions.create(["background-color"]);
           },
